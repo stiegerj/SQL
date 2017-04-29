@@ -1,0 +1,84 @@
+--Jessie Stieger
+--CIS336 iLab Week 5
+
+--Query 1
+SELECT title, contact, phone 
+FROM books, publisher
+WHERE books.pubid=publisher.pubid
+AND publisher.publishername LIKE 'R%';
+
+--Query 2
+SELECT to_char(sysdate, 'Dy HH24:MI:SS') 
+FROM dual;
+ 
+--Query 3
+SELECT  firstname as CustomerFirstName, lastname as CustomerLastName, book_order.orderid
+FROM book_order, book_customer
+WHERE book_order.customerid = book_customer.customerid
+ORDER BY book_order.customerid;
+ 
+--Query 4
+SELECT orderid, to_char(orderdate, 'Month DD, YYYY') AS "Date Ordered", shipstreet, shipcity, shipstate, shipzip 
+FROM book_order
+WHERE shipcity = 'AUSTIN'
+OR shipcity = 'ATLANTA';
+
+--Query 5 
+SELECT orderid, orderdate, shipdate, to_char(months_between(shipdate, orderdate), '0.00') AS "Months Between"
+FROM book_order;
+
+--6
+SELECT books.title AS "Book Title", author.lname, author.fname 
+FROM book_author, books, author
+WHERE books.bookid = book_author.bookid
+AND book_author.authorid = author.authorid
+ORDER BY books.title,author.lname;
+
+--Query 7
+SELECT title, cost, retail, to_char(retail-cost, '$999.99') 
+FROM books 
+WHERE title like 'H%';
+
+--Query 8
+SELECT books.title, book_order.orderdate, order_items.orderid
+FROM book_order,order_items,books
+WHERE books.bookid = order_items.bookid
+AND book_order.orderid = order_items.orderid
+ORDER BY order_items.orderid;
+
+--Query 9
+SELECT book_customer.firstname, book_customer.lastname, books.title, to_char(book_order.orderdate, 'MM/DD/YYYY') as "Order Date" 
+FROM book_customer, book_order, books, order_items, publisher
+WHERE book_customer.customerid = book_order.customerid
+AND books.bookid = order_items.bookid
+AND books.pubid = publisher.pubid
+AND book_order.orderid = order_items.orderid
+AND publisher.publishername = 'PRINTING IS US';
+
+--Query 10
+SELECT * 
+FROM books 
+WHERE bookid NOT IN (SELECT bookid FROM order_items);
+
+--Query 11
+SELECT book_customer.customerid, book_customer.firstname, book_customer.lastname, books.title 
+FROM book_customer, book_order, order_items, books
+WHERE book_customer.customerid = book_order.customerid
+AND books.bookid = order_items.bookid
+AND book_order.orderid = order_items.orderid
+AND books.category = 'FITNESS';
+
+--Query 12
+SELECT books.title, books.retail, book_order.orderdate, order_items.orderid 
+FROM books, book_order, order_items
+WHERE books.bookid = order_items.bookid
+AND book_order.orderid = order_items.orderid
+AND book_order.orderdate > '4-Apr-2009';
+
+--Query 13
+SELECT book_order.orderid, to_char(book_order.orderdate, 'MM/DD/YYYY') as "Order Date", order_items.quantity, to_char(books.retail, '$999.99') as "Retail" 
+FROM books, book_order, order_items
+WHERE books.bookid = order_items.bookid
+AND book_order.orderid = order_items.orderid
+AND book_order.orderdate > '4-Apr-2009';
+

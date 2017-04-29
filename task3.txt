@@ -1,0 +1,411 @@
+DROP TABLE Supplier CASCADE CONSTRAINTS PURGE;
+DROP TABLE Employee CASCADE CONSTRAINTS PURGE;
+DROP TABLE Program CASCADE CONSTRAINTS PURGE;
+DROP TABLE Channel CASCADE CONSTRAINTS PURGE;
+DROP TABLE Package CASCADE CONSTRAINTS PURGE;
+DROP TABLE Customer CASCADE CONSTRAINTS PURGE;
+DROP TABLE Survey CASCADE CONSTRAINTS PURGE;
+DROP TABLE Bill CASCADE CONSTRAINTS PURGE;
+DROP TABLE ChanPack CASCADE CONSTRAINTS PURGE;
+DROP TABLE ChanProg CASCADE CONSTRAINTS PURGE;
+--1 Bryan
+CREATE TABLE Supplier (
+    SuppNo NUMBER(10) CONSTRAINT PK_SUPPLIER PRIMARY KEY,
+    SuppName VARCHAR2(20),
+    SuppAddress VARCHAR2(30),
+    SuppContact VARCHAR2(20),
+    SuppPhoneNo NUMBER(15));
+    
+--Jessies Insert
+
+INSERT INTO Supplier 
+VALUES (1,'NBC','1080 Wilshire Blvd 1200 LA, CA','Jeff King',3103695231);
+INSERT INTO Supplier
+VALUES (2,'ABC','Los Angeles, CA','Jack Caverisi',3108409966);
+INSERT INTO Supplier
+VALUES (3,'FOX','10960 Wilshire Blvd LA, CA','Janis Carmikel',3102355233);
+INSERT INTO Supplier
+VALUES (4,'WARNER','3701 W Oak St Burbank, CA','Simon Phillips',3105326588);
+
+--2 Bryan
+CREATE TABLE Employee (
+    EmployeeNo NUMBER(10) CONSTRAINT PK_EMPLOYEE PRIMARY KEY,
+    FirstName VARCHAR2(10),
+    LastName VARCHAR2(10),
+    MobilePhone NUMBER(15),
+    WorkPhone NUMBER(15));
+
+--Jessies insert
+INSERT INTO Employee 
+VALUES(1,'Felicia','Smith',3601472876,4105540033);
+INSERT INTO Employee
+VALUES (2,'Eric','Wright',5052359966,5055204567);
+INSERT INTO Employee
+VALUES (3,'Andre','Young',5051234567,5058901234);
+INSERT INTO Employee
+VALUES (4,'Shea','Jackson',5053692581,5054102589);
+
+--3 Bryan
+
+CREATE TABLE Program (
+    ProgramID NUMBER(8) CONSTRAINT PK_PROGRAM PRIMARY KEY,
+    ProgramName VARCHAR2(40),
+    ProgramDescrip VARCHAR2(50),
+    ProgramLength NUMBER(4),
+    ProgramRating VARCHAR2(3),
+    SuppNo NUMBER(10));
+
+--Jessies Insert 
+INSERT INTO Program 
+VALUES (1,'Sale of the Year','Game Show Lifestyle',24,'G', 1);
+INSERT INTO Program
+VALUES (2,'Opera by the Nile','Luciano Pavorottie sings opera on the Nile',240,'G',3);
+INSERT INTO Program
+VALUES (3,'Fly Killers are Back','Flies attack the city once again',175,'MA',3);
+INSERT INTO Program
+VALUES (4,'NBC Tonight','News from around the world',360,'PG',1);
+INSERT INTO Program
+VALUES (5,'The Shopping Show','The sites to see when you shop online',120,'G',4);
+INSERT INTO Program
+VALUES (6,'Angel Fire','Angel is back on the streets',120,'R',3);
+INSERT INTO Program
+VALUES (7,'Lawn Bowl Championships','Live from Canberra',400,'G',2);
+INSERT INTO Program
+VALUES (8,'Mud Wrestling','The mud pits come alove for the muddy challenge',120,'M',3);
+--Bryans Inserts
+INSERT INTO Program
+VALUES (9,'CIS Walmart','Uncovering the Disputes at Walmart',26,'MA',4);
+INSERT INTO Program
+VALUES (10,'Stocks Today','NYSE',200,'G',3);
+INSERT INTO Program
+VALUES (11,'Todays Top Stories','Top Stories you Should Know About',100,'G',3);
+INSERT INTO Program
+VALUES (12,'ZOOM','Futuristic Family Action Movie',300,'G',4);
+INSERT INTO Program
+VALUES (13,'MR.Robot','Odd Life of a Hacker with Major Mental Issues',105,'R',3);
+INSERT INTO Program
+VALUES (14,'Fast Ones','Lives of Street Racers',300,'R',4);
+INSERT INTO Program
+VALUES (15,'Court Today','Shows People What its Like to Have Legal Issues',200,'MA',1);
+INSERT INTO Program
+VALUES (16,'NBC News','A News Show Trying to Regain Peoples Trust',200,'MA',1);
+INSERT INTO Program
+VALUES (17,'News','Just The News',100,'MA',3);
+INSERT INTO Program
+VALUES (18,'How to Train a Panda','Movie about Pandas with Animation',100,'MA',3);
+INSERT INTO Program
+VALUES (19,'What Just Happened','Funny Things On Camera',30,'MA',4);
+INSERT INTO Program
+VALUES (20,'Everyone has a Talent','Search for New Stars',100,'G',1);
+INSERT INTO Program
+VALUES (21,'Test of Strength','A Course Where Many will Try and Few will Finish',100,'G',2);
+INSERT INTO Program
+VALUES (22,'Answer This','Game Show ',100,'G',3);
+INSERT INTO Program
+VALUES (23,'Todays Music','Music Videos',300,'MA',4);
+INSERT INTO Program
+VALUES (24,'Wake-Up America','News',300,'G',2);
+INSERT INTO Program
+VALUES (25,'Storm Stories','Suspense About Extreme Weather',100,'PG',4);
+--Bryans alter
+ALTER TABLE Program
+ADD FOREIGN KEY (SuppNo)
+REFERENCES Supplier(SuppNo);
+
+--4 Bryan
+
+CREATE TABLE Channel (
+    ChanNo NUMBER(4) CONSTRAINTS PK_CHANNEL PRIMARY KEY,
+    ChannelName VARCHAR2(20),
+    ChanType VARCHAR2(20),
+    ChanDescrip VARCHAR2(60));
+    
+--Jessies insert
+INSERT INTO Channel 
+VALUES(1,'HBO','Movie','Movies for all ages');
+INSERT INTO Channel
+VALUES (2,'HBOHD','Movie HD','Movies for all ages in HD');
+INSERT INTO Channel
+VALUES (3,'Fox News','News','Local and world news');
+INSERT INTO Channel
+VALUES (4,'Fox News HD','News HD','Local and world news in HD');
+INSERT INTO Channel
+VALUES (5,'Oxygen','Lifestyle','Shows about lifestyle');
+INSERT INTO Channel
+VALUES (6,'Oxygen HD','Lifestyle HD','Shows about lifestyle in HD');
+INSERT INTO Channel
+VALUES (7,'Starz','Documentary','Educational shows for the family');
+INSERT INTO Channel
+VALUES (8,'Starz HD','Documentary HD','Educational shows for the family in HD');
+INSERT INTO Channel
+VALUES (9,'ESPN','Sports','24/7 Sports coverage');
+INSERT INTO Channel
+VALUES (10,'ESPNHD','Sports HD','24/7 Sports coverage in HD');
+
+--5 Bryan
+
+CREATE TABLE Package (
+    PackageID NUMBER(8) CONSTRAINT PK_PACKAGE PRIMARY KEY,
+    PackageName VARCHAR2(20),
+    PackagePrice NUMBER(5,2));
+    
+--Jessies Insert
+INSERT INTO Package 
+VALUES(1,'Movies Galore',30);
+INSERT INTO Package
+VALUES(2,'News Globe',30);
+INSERT INTO Package
+VALUES(3,'Total Watcher',40);
+INSERT INTO Package
+VALUES(4,'Couch Potato',50);
+    
+--6 Don
+CREATE TABLE Customer(
+     CustNo NUMBER(12) CONSTRAINTS Customer_CustNo_PK PRIMARY KEY,
+     FirstName VARCHAR2(30),
+     LastName VARCHAR2(30),
+     SignUpDate DATE,
+     CustStatus VARCHAR2(20),
+     StreetAddress VARCHAR2(30),
+     UnitNo VARCHAR2(8),
+     City VARCHAR2(30) NOT NULL,
+     State VARCHAR2(2) NOT NULL,
+     Zip NUMBER(9) NOT NULL,
+     EmailAddress VARCHAR2(40),
+     PackageID NUMBER(8),
+     PhoneNo NUMBER(15),
+     EmployeeNo NUMBER(10),
+     InactiveDate DATE,
+     InactiveReason VARCHAR2(20)
+ );
+ 
+--Jessies Insert
+INSERT INTO Customer 
+VALUES(1,'Jessie','Stieger','1-FEB-2013','ACTIVE','1800 Pennsylvania Ave',1,'Baltimore','MD',21228,'polyphase233@gmailD400155.com',1,3603692594,NULL,NULL,NULL); 
+INSERT INTO Customer
+VALUES (2,'Donald','Smith','1-FEB-2013','SUSPENDED','525 My Ave NE',NULL,'Albuquerque','NM',87144,'blahblah@me.com',3,5051234587,3,'15-JAN-2012','DELINQUENT');
+INSERT INTO Customer
+VALUES (3,'Bryan','Giovanini','1-FEB-2013','ACTIVE','777 Gate Way','1562','Aztec','NM',87415,'thatsokforme@blah.com',4,5056658945,NULL,NULL,NULL);
+--Bryans Insert
+INSERT INTO Customer
+VALUES (4,'Red','Bull','15-JUN-2012','ACTIVE','366 Your Way','145B','That City','NV',12345,'thatsme@blah.com',4,5056658945,NULL,NULL,NULL);
+INSERT INTO Customer
+VALUES (5,'Tow','Mater','1-JUL-2012','SUSPENDED','Number 1 Tow Yard','1472','Radiator Springs','NV',99861,'needatow@me.com',3,5557822246,1,'15-FEB-2012','DELINQUENT');
+INSERT INTO Customer
+VALUES (6,'Lightning','McQueen','15-JUL-2013','ACTIVE','Number 1 Race Car','0001','Radiator Springs','NV',99861,'2fast4u@me.com',3,5557823380,NULL,NULL,NULL);
+INSERT INTO Customer
+VALUES (7,'Doc','Hudson','1-AUG-2013','ACTIVE','001 Lazy Road','8916','Radiator Springs','NV',99862,'thedoc@me.com',1,5557823653,NULL,NULL,NULL);
+INSERT INTO Customer
+VALUES (8,'Sally','Carrera','15-AUG-2013','ACTIVE','32 Cozy Cone','7916','Radiator Springs','NV',99861,'thecozycone@me.com',4,5557829871,NULL,NULL,NULL);
+INSERT INTO Customer
+VALUES (9,'Elliot','Anderson','1-SEP-2013','SUSPENDED','121 APT G','2357','New York','NY',54126,'Ihackeveryone@me.com',2,9875427655,2,'15-JUN-2013','DELINQUENT');
+INSERT INTO Customer
+VALUES (10,'Angela','Moss','15-SEP-2013','SUSPENDED','32 Walmart RD','2389','New York','NY',54137,'blondgirl@me.com',3,9875429976,4,'15-FEB-2014','DELINQUENT');
+INSERT INTO Customer
+VALUES (11,'Tyrell','Wellick','1-OCT-2013','ACTIVE','01 Pent House','9871','New York','NY',54762,'theoddman@me.com',4,9875428761,NULL,NULL,NULL);
+INSERT INTO Customer
+VALUES (12,'MR','Robot','1-NOV-2013','SUSPENDED','886 Board Walk','2761','New York','NY',54871,'crazyhacker@me.com',1,9875486511,5,'15-NOV-2014','DELINQUENT');
+
+--Dons Customer alter
+
+ALTER TABLE Customer
+ADD CONSTRAINT Customer_PackageID_FK FOREIGN KEY (PackageID) REFERENCES Package (PackageID);
+ALTER TABLE Customer
+ADD CONSTRAINT Customer_EmployeeNo_FK FOREIGN KEY (EmployeeNo) REFERENCES Employee (EmployeeNo);    
+    
+--7 Don
+CREATE TABLE Survey(
+    SurveyNo NUMBER(10) CONSTRAINT Survey_SurveyNo_PK PRIMARY KEY,
+    SurveyDate DATE,
+    Custno NUMBER(12),
+    ChanNo NUMBER(4)
+);
+--Jessies Insert
+INSERT INTO Survey 
+VALUES(1,'20-APR-2007',1,1);
+INSERT INTO Survey
+VALUES(2,'21-FEB-2011',2,2);
+INSERT INTO Survey
+VALUES(3,'23-MAR-2008',3,10);
+
+--Dons Survey alter
+ALTER TABLE Survey
+    ADD CONSTRAINT Survey_CustNo_FK FOREIGN KEY (CustNo) REFERENCES Customer (CustNo);
+ALTER TABLE Survey
+    ADD CONSTRAINT Survey_ChanNo_FK FOREIGN KEY (ChanNo) REFERENCES Channel (ChanNo);
+    
+--8 Don
+CREATE TABLE Bill(
+    BillNo NUMBER(8) CONSTRAINT Bill_BillNo_PK PRIMARY KEY,
+    CustNo NUMBER(12) NOT NULL,
+    BillDate DATE NOT NULL,
+    BillDueDate DATE NOT NULL,
+    BillAmount NUMBER(8),
+    BillStatus VARCHAR2(8)
+);
+--Jessies Inserts
+INSERT INTO Bill 
+VALUES(1,1,'1-FEB-2014','1-MAR-2014',30,'PAID');
+INSERT INTO BILL
+VALUES(2,2,'15-DEC-2011','15-JAN-2012',30,'DUE');
+INSERT INTO BILL
+VALUES(3,3,'1-JUN-2008','1-JUL-2008',40,'PAID');
+
+
+--Dons alter
+
+ALTER TABLE Bill
+    ADD CONSTRAINT Bill_CustNo_FK FOREIGN KEY (CustNo) REFERENCES Customer (CustNo);
+    
+    
+--9 Bryan 
+CREATE TABLE ChanPack(
+ChanNo NUMBER(4),
+PackageID NUMBER(8));
+
+--Bryans Insert
+INSERT INTO CHANPACK
+VALUES(1,1);
+INSERT INTO CHANPACK
+VALUES(1,2);
+INSERT INTO CHANPACK
+VALUES(1,3);
+INSERT INTO CHANPACK
+VALUES(1,4);
+INSERT INTO CHANPACK
+VALUES(2,1);
+INSERT INTO CHANPACK
+VALUES(2,3);
+INSERT INTO CHANPACK
+VALUES(2,4);
+INSERT INTO CHANPACK
+VALUES(3,1);
+INSERT INTO CHANPACK
+VALUES(3,2);
+INSERT INTO CHANPACK
+VALUES(3,3);
+INSERT INTO CHANPACK
+VALUES(3,4);
+INSERT INTO CHANPACK
+VALUES(4,2);
+INSERT INTO CHANPACK
+VALUES(4,4);
+INSERT INTO CHANPACK
+VALUES(5,4);
+INSERT INTO CHANPACK
+VALUES(6,4);
+INSERT INTO CHANPACK
+VALUES(6,1);
+INSERT INTO CHANPACK
+VALUES(6,2);
+INSERT INTO CHANPACK
+VALUES(6,3);
+INSERT INTO CHANPACK
+VALUES(7,1);
+INSERT INTO CHANPACK
+VALUES(7,2);
+INSERT INTO CHANPACK
+VALUES(7,3);
+INSERT INTO CHANPACK
+VALUES(7,4);
+INSERT INTO CHANPACK
+VALUES(8,3);
+INSERT INTO CHANPACK
+VALUES(8,4);
+INSERT INTO CHANPACK
+VALUES(9,1);
+INSERT INTO CHANPACK
+VALUES(9,2);
+INSERT INTO CHANPACK
+VALUES(9,3);
+INSERT INTO CHANPACK
+VALUES(9,4);
+INSERT INTO CHANPACK
+VALUES(10,3);
+INSERT INTO CHANPACK
+VALUES(10,4);
+--ChanPack constraint 
+
+ALTER TABLE ChanPack
+ADD FOREIGN KEY (ChanNo)
+REFERENCES Channel(ChanNo);
+
+ALTER TABLE ChanPack
+ADD FOREIGN KEY (PackageID)
+REFERENCES Package(PackageID);
+
+ALTER TABLE ChanPack
+ADD CONSTRAINT ChanPack_PackageID_ChanNo_PK PRIMARY KEY (ChanNo, PackageID);
+
+--10 Bryan 
+CREATE TABLE ChanProg (
+ProgramID NUMBER(10) NOT NULL,
+ChanNo NUMBER(4),
+AirDate DATE,
+Time NUMBER(10));
+
+--Bryans Inserts
+
+INSERT INTO CHANPROG
+VALUES(1,1, '01-DEC-2015', '230');
+
+INSERT INTO CHANPROG
+VALUES(1,2, '03-DEC-2015', '500');
+
+INSERT INTO CHANPROG
+VALUES(2,3, '02-DEC-2015', '500');
+
+INSERT INTO CHANPROG
+VALUES(2,4, '03-DEC-2015', '600');
+
+INSERT INTO CHANPROG
+VALUES(4,5, '04-DEC-2015', '900');
+
+INSERT INTO CHANPROG
+VALUES(4,6, '04-DEC-2015', '1000');
+
+INSERT INTO CHANPROG
+VALUES(3,7, '05-DEC-2015', '600');
+
+INSERT INTO CHANPROG
+VALUES(3,8, '05-DEC-2015', '700');
+
+INSERT INTO CHANPROG
+VALUES(3,9, '06-DEC-2015', '1100');
+
+INSERT INTO CHANPROG
+VALUES(3,10, '06-DEC-2015', '1200');
+
+--ChanProg constraint
+ALTER TABLE ChanProg
+ADD FOREIGN KEY (ChanNo)
+REFERENCES Channel(ChanNo);
+
+
+ALTER TABLE ChanProg
+ADD FOREIGN KEY (PackageID)
+REFERENCES Package(PackageID);
+
+
+
+--Select statements
+--1
+SELECT * FROM SUPPLIER;
+--2
+SELECT * FROM EMPLOYEE;
+--3
+SELECT * FROM PROGRAM;
+--4
+SELECT * FROM CHANNEL;
+--5
+SELECT * FROM  PACKAGE;
+--6
+SELECT * FROM CUSTOMER;
+--7
+SELECT * FROM SURVEY;
+--8
+SELECT * FROM BILL;
+--9
+SELECT * FROM CHANPACK;
+--10
+SELECT * FROM CHANPROG;
